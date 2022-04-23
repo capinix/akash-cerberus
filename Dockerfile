@@ -28,8 +28,8 @@ RUN echo "${APP_USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Configure ssh key auth for root and user
 RUN mkdir /root/.ssh /home/${APP_USER}/.ssh && chmod 700 /root/.ssh /home/${APP_USER}/.ssh
-COPY id_rsa.pub /root/.ssh/authorized_keys
-COPY id_rsa.pub /home/${APP_USER}/.ssh/authorized_keys
+COPY ssh/id_rsa.pub /root/.ssh/authorized_keys
+COPY ssh/id_rsa.pub /home/${APP_USER}/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys /home/${APP_USER}/.ssh/authorized_keys
 RUN chown -R ${APP_USER}:${APP_USER} /home/${APP_USER}/.ssh
 

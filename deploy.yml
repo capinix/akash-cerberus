@@ -1,0 +1,46 @@
+version: "2.0"
+
+services:
+  web:
+    image: capinix/cerberusd:lastest
+    expose:
+      - port: 22
+        as: 22000
+        to:
+          - global: true
+      - port: 1317
+        as: 1317
+        to:
+          - global: true
+      - port: 26657
+        as: 26657
+        to:
+          - global: true
+
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 2Gi
+        storage:
+          size: 160Gi
+  placement:
+    dcloud:
+      attributes:
+        host: akash
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        web:
+          denom: uakt
+          amount: 30
+
+deployment:
+  web:
+    dcloud:
+      profile: web
+      count: 1
